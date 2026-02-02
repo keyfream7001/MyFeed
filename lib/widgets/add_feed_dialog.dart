@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/feed_provider.dart';
-import '../models/feed_source.dart';
 
 class AddFeedDialog extends StatefulWidget {
   const AddFeedDialog({super.key});
@@ -81,7 +80,8 @@ class _AddFeedDialogState extends State<AddFeedDialog> {
                   if (value == null || value.isEmpty) {
                     return 'URL을 입력해주세요';
                   }
-                  if (!Uri.tryParse(value)!.hasScheme ?? true) {
+                  final uri = Uri.tryParse(value);
+                  if (uri == null || !uri.hasScheme) {
                     return '올바른 URL 형식이 아닙니다';
                   }
                   return null;
